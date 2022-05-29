@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Zakat Calculator</string>
+
+    <string name="tvZakatCalculation">ZAKAT CALCULATION</string>
+
+    <string name="tvWeight">Gold Weight (gram):</string>
+
+    <string name="tvUruf">*Uruf: Keep (85g) || Wear (200g)</string>
+
+    <string name="tvType">Type:</string>
+    <string name="rbKeep">Keep</string>
+    <string name="rbWear">Wear</string>
+
+    <string name="tvCurrentGold">Current Gold (per gram):</string>
+    <string name="rb250">250</string>
+    <string name="rb280">280</string>
+
+    <string name="btnCalculate">Calculate</string>
+
+    <string name="tvdescription1">Gold Weight x Current Gold:</string>
+    <string name="tvOutput1">Total Value of Gold (RM):</string>
+
+    <string name="tvdescription2">(Gold Weight - Uruf) x Current Gold</string>
+    <string name="tvOutput2">Zakat Payable (RM):</string>
+
+    <string name="tvdescription3">2.5% x Zakat Payable</string>
+    <string name="tvOutput3">Total Zakat (RM):</string>
+
+    <string name="tvCopyright">Copyright © 2022 Farah Izzati</string>
+</resources>
