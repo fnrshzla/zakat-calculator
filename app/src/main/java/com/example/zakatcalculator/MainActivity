@@ -1,0 +1,132 @@
+package com.example.zakatcalculator;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    EditText etWeight;
+    RadioGroup rbType;
+    RadioButton rbKeep;
+    RadioButton rbWear;
+    RadioGroup rbCurrentGold;
+    RadioButton rb250;
+    RadioButton rb280;
+    Button btnCalculate;
+    TextView tvOutput1;
+    TextView tvOutput2;
+    TextView tvOutput3;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        etWeight = (EditText) findViewById(R.id.etWeight);
+        rbType = (RadioGroup) findViewById(R.id.rbType);
+        rbKeep = (RadioButton) findViewById(R.id.rbKeep);
+        rbWear = (RadioButton) findViewById(R.id.rbWear);
+        rbCurrentGold = (RadioGroup) findViewById(R.id.rbCurrentGold);
+        rb280 = (RadioButton) findViewById(R.id.rb280);
+        rb250 = (RadioButton) findViewById(R.id.rb250);
+        btnCalculate = (Button) findViewById(R.id.btnCalculate);
+        tvOutput1 = (TextView) findViewById(R.id.tvOutput1);
+        tvOutput2 = (TextView) findViewById(R.id.tvOutput2);
+        tvOutput3 = (TextView) findViewById(R.id.tvOutput3);
+
+        btnCalculate.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.btnCalculate:
+
+                try {
+                    EditText etWeight = (EditText) findViewById(R.id.etWeight);
+                    double weight = Double.parseDouble(etWeight.getText().toString());
+
+                    double totalvalueGold = 0;
+                    double currentGold = 0;
+                    double zakatPayable = 0;
+                    double keepUruf = 85;
+                    double wearUruf = 200;
+                    double percentZakat = 0.025;
+                    double totalZakat = 0;
+
+                    //find total value of the gold
+                    if (rb250.isChecked()) {
+                        totalvalueGold = weight * 250;
+
+                    } else if (rb280.isChecked()) {
+                        totalvalueGold = weight * 280;
+
+                    }
+
+                    TextView tvOutput1 = (TextView) findViewById(R.id.tvOutput1);
+                    tvOutput1.setText("Total Value of Gold (RM): " + totalvalueGold);
+
+                    //find zakat payable
+                    if (rbKeep.isChecked()){
+                        if (rb250.isChecked()) {
+                            currentGold = 250;
+                        } else if (rb280.isChecked()) {
+                            currentGold = 280;
+                        }
+
+                        zakatPayable = (weight - keepUruf) * currentGold;
+
+                        if (zakatPayable<0){
+                            zakatPayable = 0;
+                        }
+
+                    } else if (rbWear.isChecked()){
+                        if (rb250.isChecked()) {
+                            currentGold = 250;
+                        } else if (rb280.isChecked()) {
+                            currentGold = 280;
+                        }
+
+                        zakatPayable = (weight - wearUruf) * currentGold;
+
+                        if (zakatPayable<0){
+                            zakatPayable = 0;
+                        }
+
+                    }
+
+                    TextView tvOutput2 = (TextView) findViewById(R.id.tvOutput2);
+                    tvOutput2.setText("Zakat Payable (RM): " + zakatPayable);
+
+                    //find total zakat
+                    totalZakat = percentZakat * zakatPayable;
+
+                    TextView tvOutput3 = (TextView) findViewById(R.id.tvOutput3);
+                    tvOutput3.setText("Total Zakat (RM): " + totalZakat);
+
+                } catch (java.lang.NumberFormatException nfe) {
+
+                    Toast.makeText(this, "Please enter a valid number", Toast.LENGTH_SHORT).show();
+
+                } catch (Exception exp) {
+
+                    Toast.makeText(this, "Unknown exception" + exp.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    Log.d("Exception", exp.getMessage());
+                }
+
+                break;
+        }
+    }
+}
